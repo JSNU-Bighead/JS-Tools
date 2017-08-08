@@ -5,7 +5,22 @@ import defaultTo from 'lodash/defaultTo'
 import Popper from 'popper.js'
 import btnUrl from './btn.png'
 import arrowUrl from './arrow.png'
-
+// from:https://github.com/jserz/js_piece/blob/master/DOM/ChildNode/remove()/remove().md
+(function (arr) {
+  arr.forEach(function (item) {
+    if (item.hasOwnProperty('remove')) {
+      return;
+    }
+    Object.defineProperty(item, 'remove', {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function remove() {
+        this.parentNode.removeChild(this);
+      }
+    });
+  });
+})([Element.prototype, CharacterData.prototype, DocumentType.prototype]);
 var Guide = {
     mask: null,
     showGuide(guide) {
@@ -42,19 +57,21 @@ var Guide = {
         Object.assign(arrow.style, {
             position: 'absolute',
             top: '-35px',
-            left: '0'
+            left: '0',
+            width: 'auto'
         })
         
         Object.assign(btn.style, {
             display: 'block',
             margin: '400px auto 0 auto',
             position: 'relative',
-            cursor: 'pointer'
+            cursor: 'pointer',
+            width: 'auto'
         })
         
         Object.assign(pop.style, {
             position: 'absolute',
-            margin: '50px',
+            margin: '40px',
             color: 'white',
             fontSize: '1.2em',
             zIndex: 1
@@ -99,7 +116,6 @@ var Guide = {
             left: left+'px',
             width: width+'px',
             height: height+'px',
-            outline: '1px dashed white',
             boxShadow: '0px 0px 1px 1000000px rgba(0, 0, 0, 0.65)'
         })
     },
@@ -124,17 +140,17 @@ var Guide = {
             if(!isEmpty(config.Expires) && config.Expires < (new Date())) return;
             localStorage.setItem(`guide-${location.host+location.pathname}`, true);
         }
-
         if(isEmpty(config.guides)) {
             console.error(`guides is not provide`);
             return;
         }
+        document.body.style.overflow = 'hidden';
         for(var guide of config.guides) {
             await this.showGuide(guide)
         }
         
+        document.body.style.overflow = 'initial';
         this.removeMask();
     }
 }
-
 window.Guide = Guide
