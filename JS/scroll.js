@@ -1,6 +1,6 @@
 var scrollFn_Y = function (selector,scrollTop,time){//滚动元素，滚动目标位置，滚动时长
     var element = document.querySelector(selector);
-    //TODO 判断滚动方向
+    //判断滚动方向
     var goingDown = false;
     var curScollTop = element.scrollTop;
     if(curScollTop == scrollTop) return;
@@ -9,7 +9,7 @@ var scrollFn_Y = function (selector,scrollTop,time){//滚动元素，滚动目�
     } else {
         goingDown = false;
     }
-    //TODO 滚动步长
+    //步长
     var length = Math.abs(curScollTop - scrollTop);
     var step = Math.floor(length/time*10) || 1;//最小1
     step = step > length ? length : step;//最大总长度
@@ -17,7 +17,7 @@ var scrollFn_Y = function (selector,scrollTop,time){//滚动元素，滚动目�
 }
 var scrollFn_X = function (selector,scrollLeft,time){//滚动元素，滚动目标位置，滚动时长
     var element = document.querySelector(selector);
-    //TODO 判断滚动方向
+    //判断滚动方向
     var goingDown = false;
     var curScollLeft = element.scrollLeft;
     if(curScollLeft == scrollLeft) return;
@@ -26,7 +26,7 @@ var scrollFn_X = function (selector,scrollLeft,time){//滚动元素，滚动目�
     } else {
         goingRight = false;
     }
-    //TODO 滚动步长
+    //步长
     var length = Math.abs(curScollLeft - scrollLeft);
     var step = Math.floor(length/time*10) || 1;//最小1
     step = step > length ? length : step;//最大总长度
