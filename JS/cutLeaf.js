@@ -10,7 +10,7 @@ let cut = function (nodes, cb) {
             if (node.children) {
                 cut(node.children)
             } else {
-                return;
+                continue;
             }
         }
     }
